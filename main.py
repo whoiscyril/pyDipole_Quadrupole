@@ -1,15 +1,18 @@
 from Cell import Cell
 from Atom import Atom
+from ml import ML
 import sys
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        filename = sys.argv[1]
+        infile = sys.argv[1]
+        outfile = sys.argv[2]
+        resfile = sys.argv[3]
     else:
-        filename = 'input.gin'
-    cell = Cell(filename)
-    atom_list = cell.atoms_frac
-    for atom in cell.atoms_frac:
-        print(
-            f"ID: {atom.id}, Label: {atom.label}, Type: {atom.type}, Coordinates: ({atom.x}, "
-            f"{atom.y}, {atom.z}), Charge: {atom.q}")
+        raise("Not enough files")
+    # cell = Cell(filename)
+    output = ML(outfile)
+    r2atoms = output.get_r2atoms_before()
+
+    for atom in r2atoms:
+        print(f"{atom.id}, {atom.label}, {atom.type},{atom.x}, {atom.y}, {atom.z}, {atom.q}")
